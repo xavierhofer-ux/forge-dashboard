@@ -1,0 +1,13 @@
+{
+  "projectName": "forge-dashboard",
+  "projectId": "",
+  "orgId": "",
+  "buildCommand": "npm run build",
+  "framework": "vite",
+  "outputDirectory": "dist",
+  "cleanUrls": true,
+  "autoExposeSystemEnvs": true,
+  "env": {
+    "NODE_ENV": "production"
+  }
+}
