@@ -1,0 +1,25 @@
+[build]
+  command = "npm run build"
+  functions = "netlify/functions"
+  publish = "dist"
+
+[build.environment]
+  VITE_API_URL = "https://forge-backend--xavierhofer.replit.app"
+  NODE_VERSION = "18"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[context.production]
+  [context.production.environment]
+    VITE_API_URL = "https://forge-backend--xavierhofer.replit.app"
+
+[context.development]
+  [context.development.environment]
+    VITE_API_URL = "http://localhost:3000"
+
+[context.deploy-preview]
+  [context.deploy-preview.environment]
+    VITE_API_URL = "https://forge-backend--xavierhofer.replit.app"

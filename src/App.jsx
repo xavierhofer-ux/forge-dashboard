@@ -21,24 +21,22 @@ export default function App() {
     try {
       setError(null)
       
-      // Fetch DASHBOARD.md
-      const dashboardRes = await axios.get(`${baseDir}/DASHBOARD.md`, { responseType: 'text' })
-      setDashboardData(dashboardRes.data)
+      // Fetch from backend API
+      const backendUrl = 'https://forge-backend--xavierhofer.replit.app'
+      const metricsRes = await axios.get(`${backendUrl}/api/dashboard/metrics`)
       
-      // Fetch BUDGET_LOG.md
-      const budgetRes = await axios.get(`${baseDir}/BUDGET_LOG.md`, { responseType: 'text' })
-      setBudgetData(budgetRes.data)
-      
-      // Fetch PROGRESS_LOG.md
-      const progressRes = await axios.get(`${baseDir}/PROGRESS_LOG.md`, { responseType: 'text' })
-      setProgressData(progressRes.data)
+      // Transform API response into display format
+      const metrics = metricsRes.data
+      setDashboardData(metrics)
+      setBudgetData(metrics)
+      setProgressData(metrics)
       
       setLastUpdated(new Date())
       setLoading(false)
     } catch (err) {
-      setError('Failed to fetch dashboard data. Using demo mode.')
+      setError('Failed to fetch dashboard data from API.')
       setLoading(false)
-      console.log('Note: Running in demo mode since files are not accessible via HTTP')
+      console.log('Error:', err.message)
     }
   }
 
