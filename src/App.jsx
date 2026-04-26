@@ -15,22 +15,22 @@ export default function App() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
-  const baseDir = '../..'
+  // Get API base URL from environment variable or use localhost as fallback
+  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000'
 
   const fetchData = async () => {
     try {
       setError(null)
       
-      // Fetch from backend API
-      const backendUrl = 'https://forge-backend--xavierhofer.replit.app'
-      const metricsRes = await axios.get(`${backendUrl}/api/dashboard/metrics`)
-      
+      // Fetch from backend API (configurable via environment variable)
+      const metricsRes = await axios.get(`${apiBaseUrl}/api/dashboard/metrics`)
+
       // Transform API response into display format
       const metrics = metricsRes.data
       setDashboardData(metrics)
       setBudgetData(metrics)
       setProgressData(metrics)
-      
+
       setLastUpdated(new Date())
       setLoading(false)
     } catch (err) {
